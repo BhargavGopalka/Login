@@ -1,0 +1,33 @@
+<button (click)="showForm(null)">Add</button>
+<br><br>
+<div *ngIf="addShow">
+<fieldset>
+  <form [formGroup]="dataForm" (submit)="addOrg(dataForm.value)" >
+    <br>
+    Organization Name:
+    <input type="text" placeholder="Name" formControlName="name"><br><br>
+    <button type="submit">{{selectedOrg ? 'Update' : 'Add'}}</button>
+    <button type="reset" (click)="goPrev()">Cancel</button>
+    <br>
+  </form>
+</fieldset>
+</div>
+<br><br>
+<div *ngIf="show">
+<table border="1">
+  <tr>
+    <th>Number</th>
+    <th>Organization</th>
+    <th>Update</th>
+    <th>Delete</th>
+  </tr>
+
+  <tr *ngFor="let detail of details; let i = index">
+    <th>{{i + 1}}</th>
+    <th>{{detail.name}}</th>
+    <th><button (click)="showForm(detail)">Edit</button></th>
+    <th><button (click)="doRemove(detail.id, i)">Remove</button></th>
+  </tr>
+</table>
+
+</div>

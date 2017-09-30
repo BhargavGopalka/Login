@@ -1,0 +1,22 @@
+<button routerLink="organization">Organization</button>
+<button routerLink="country">Country</button>
+<button routerLink="state">States</button>
+<br><br>
+<table border="1">
+  <tr>
+    <th>Organization</th>
+    <th>Number</th>
+    <th>Department</th>
+    <th>Extension</th>
+    <th>Country</th>
+    <th>State</th>
+  </tr>
+  <tr *ngFor="let detail of details">
+    <td>{{detail.org}}</td>
+    <td>{{detail.phone_number}}</td>
+    <td>{{detail.department}}</td>
+    <td>{{detail.extension}}</td>
+    <td>{{detail.country}}</td>
+    <td>{{detail.state}}</td>
+  </tr>
+</table>
