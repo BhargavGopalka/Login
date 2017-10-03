@@ -6,7 +6,7 @@
     <option value="0">Select Organization</option>
     <option *ngFor="let org of organizations" value={{org.id}}>{{org.name}}</option>
   </select><br><br>
-    Name: <input type="text" placeholder="Department Name" formControlName="department"><br><br>
+    Name: <input type="text" placeholder="Department Name" formControlName="name"><br><br>
     <button type="submit">{{ selectDepartment ? 'Update' : 'Add'}}</button>
     <button type="reset" (click)="goPrev()">Cancel</button>
   </form>

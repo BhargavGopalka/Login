@@ -1,19 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { HttpModule } from '@angular/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InfoTableComponent } from './info-table/info-table.component';
-import { AppRoutingModule } from './app-routing/app-routing.module';
-import { LoginUserComponent } from './login-user/login-user.component';
-import { OrganizationComponent } from './organization/organization.component';
-import { CountryComponent } from './country/country.component';
-import { StateInfoComponent } from './state-info/state-info.component';
+import {AppComponent} from './app.component';
+import {HttpModule} from '@angular/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {InfoTableComponent} from './info-table/info-table.component';
+import {AppRoutingModule} from './app-routing/app-routing.module';
+import {LoginUserComponent} from './login-user/login-user.component';
+import {OrganizationComponent} from './organization/organization.component';
+import {CountryComponent} from './country/country.component';
+import {StateInfoComponent} from './state-info/state-info.component';
 import {AppServiceService} from "./app-service.service";
-import { DepartmentComponent } from './department/department.component';
-import { CityComponent } from './city/city.component';
-import { LocationComponent } from './location/location.component';
+import {DepartmentComponent} from './department/department.component';
+import {CityComponent} from './city/city.component';
+import {LocationComponent} from './location/location.component';
+import { ApplicationComponent } from './application/application.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LocationComponent } from './location/location.component';
     StateInfoComponent,
     DepartmentComponent,
     CityComponent,
-    LocationComponent
+    LocationComponent,
+    ApplicationComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import { LocationComponent } from './location/location.component';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [ AppServiceService ],
+  providers: [AppServiceService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

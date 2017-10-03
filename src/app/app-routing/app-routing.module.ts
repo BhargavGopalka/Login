@@ -8,6 +8,7 @@ import {StateInfoComponent} from '../state-info/state-info.component';
 import {DepartmentComponent} from '../department/department.component';
 import {CityComponent} from "../city/city.component";
 import {LocationComponent} from "../location/location.component";
+import {ApplicationComponent} from "../application/application.component";
 
 export const routes: Routes = [
   {
@@ -62,6 +63,14 @@ export const routes: Routes = [
   {
     path: 'infoTable/country',
     component: CountryComponent
+  },
+  {
+    path: 'application',
+    component: ApplicationComponent
+  },
+  {
+    path: 'infoTable/application',
+    component: ApplicationComponent
   },
   {
     path: 'state',

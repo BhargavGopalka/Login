@@ -85,7 +85,7 @@ export class DepartmentComponent implements OnInit {
   initial(departmentData: any) {
     this.departmentForm = this.fb.group({
       org_id: [departmentData ? departmentData.org_id : ''],
-      department: [departmentData ? departmentData.department : '']
+      name: [departmentData ? departmentData.department : '']
     });
   }
 

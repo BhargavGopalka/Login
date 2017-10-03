@@ -83,7 +83,7 @@ export class CityComponent implements OnInit {
   initial(cityData: any) {
     this.cityForm = this.fb.group({
       state_id: [cityData ? cityData.state_id : ''],
-      city: [cityData ? cityData.name : ''],
+      name: [cityData ? cityData.name : ''],
       code: [cityData ? cityData.code : '']
     });
   }
