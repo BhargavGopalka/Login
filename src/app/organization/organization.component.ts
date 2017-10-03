@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { RequestOptions, Headers, Http } from '@angular/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {AppServiceService} from '../app-service.service';
+import {Organization} from './organization.model';
 
 @Component({
   selector: 'app-organization',
@@ -9,30 +10,27 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class OrganizationComponent implements OnInit {
 
-  details = [];
+  Organization: Organization[] = [];
+
   dataForm: FormGroup;
-  show = true;
-  addShow = false;
   selectedOrg = null;
 
-  constructor( private http: Http, private fb: FormBuilder) { }
+  tableShow = true;
+  formShow = false;
+
+  constructor(private fb: FormBuilder, private appService: AppServiceService) {
+  }
 
   ngOnInit() {
     this.getOrg();
   }
 
   getOrg() {
-    const header = new Headers();
-    header.append('Authorization', sessionStorage.getItem('currentUser'));
-
-    const option = new RequestOptions();
-    option.headers = header;
-
-    const url = `https://mvp-dev-extensionsapi.visumenu.com/organization?pageNumber=1&recordsPerPage=20`;
-    this.http.get(url, option)
-      .subscribe( res => {
-        console.log(res.json());
-        this.details = res.json().payload.data;
+    const url = `organization?pageNumber=1&recordsPerPage=20`;
+    this.appService.getAPI(url)
+      .subscribe(res => {
+        console.log(res);
+        this.Organization = res.payload.data;
         // console.log(this.details);
       });
   }
@@ -42,33 +40,28 @@ export class OrganizationComponent implements OnInit {
     //   name: ['formVal']
     // });
 
-    const header = new Headers();
-    header.append('Authorization', sessionStorage.getItem('currentUser'));
-
-    const option = new RequestOptions();
-    option.headers = header;
-
-    const url = `https://mvp-dev-extensionsapi.visumenu.com/organization`;
-if (this.selectedOrg == null) {
-    this.http.post(url, formVal, option)
-      .subscribe(res => {
-        console.log(res.json());
-        this.details.push(res.json().payload.data);
-        console.log(this.details);
-      },
-      msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
-} else {
-  this.http.put(url + '/' + this.selectedOrg.id, formVal, option)
-    .subscribe(res => {
-        console.log(res.json());
-        // this.details.push(res.json().payload.data);
-        // console.log(this.details);
-      this.getOrg();
-      },
-      msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
-}
-    this.show = true;
-    this.addShow = false;
+    const url = `organization`;
+    if (this.selectedOrg == null) {
+      this.appService.postAPI(url, formVal)
+        .subscribe(res => {
+            console.log(res);
+            this.getOrg();
+            this.tableShow = true;
+            this.formShow = false;
+          },
+          msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
+    } else {
+      this.appService.putAPI(url + '/' + this.selectedOrg.id, formVal)
+        .subscribe(res => {
+            console.log(res);
+            // this.details.push(res.json().payload.data);
+            // console.log(this.details);
+            this.getOrg();
+            this.tableShow = true;
+            this.formShow = false;
+          },
+          msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
+    }
   }
 
   // doEdit(id: number, formVal: any) {
@@ -92,19 +85,13 @@ if (this.selectedOrg == null) {
   //       msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
   // }
 
-  doRemove(id: number, index: number) {
-
-    const header = new Headers();
-    header.append('Authorization', sessionStorage.getItem('currentUser'));
-
-    const option = new RequestOptions();
-    option.headers = header;
-
-    const url = `https://mvp-dev-extensionsapi.visumenu.com/organization/${id}`;
-    this.http.delete(url , option)
+  removeOrg(id: number, index: number) {
+    const url = `organization/${id}`;
+    this.appService.deleteAPI(url)
       .subscribe(res => {
-        this.details.splice(index, 1);
-        console.log(res.json());
+        this.Organization.splice(index, 1);
+        console.log(res);
+        this.getOrg();
       });
   }
 
@@ -117,13 +104,13 @@ if (this.selectedOrg == null) {
 
   showForm(orgData: any) {
     this.selectedOrg = orgData;
-    this.show = false;
-    this.addShow = true;
+    this.tableShow = false;
+    this.formShow = true;
     this.intialForm(orgData);
   }
 
   goPrev() {
-    this.addShow = false;
-    this.show = true;
+    this.formShow = false;
+    this.tableShow = true;
   }
 }

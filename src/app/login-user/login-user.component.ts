@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Http} from '@angular/http';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-user',
@@ -14,7 +14,8 @@ export class LoginUserComponent implements OnInit {
   ngOnInit() {
   }
 
-  constructor(private http: Http, private routes: Router) {}
+  constructor(private http: Http, private routes: Router) {
+  }
 
   login(form: NgForm) {
 
@@ -31,6 +32,7 @@ export class LoginUserComponent implements OnInit {
         }
       });
   }
+
   //
   // doHeader(token: string){
   //   let header = new Headers();

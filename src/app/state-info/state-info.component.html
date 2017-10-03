@@ -9,7 +9,7 @@
     State: <input type="text" placeholder="Enter State" formControlName="state"><br><br>
     Code: <input type="text" placeholder="Enter Code" formControlName="code"><br><br>
     <button type="submit">{{ selectState ? 'Update' : 'Add'}}</button>
-    <button type="reset">Cancel</button>
+    <button type="reset" (click)="goPrev()">Cancel</button>
   </form>
 </fieldset>
 <br><br>
@@ -25,13 +25,17 @@
     <th>Remove</th>
   </tr>
 
-  <tr *ngFor="let detail of details, let i = index">
+  <tr *ngFor="let stateInfo of stateList; let i = index">
     <td>{{i + 1}}</td>
-    <td>{{detail.state}}</td>
-    <td>{{detail.code}}</td>
-    <td>{{detail.country}}</td>
-    <td><button (click)="showProperty(detail)">Edit</button></td>
-    <td><button (click)="removeState(detail.id, i)">Delete</button></td>
+    <td>{{stateInfo.state}}</td>
+    <td>{{stateInfo.code}}</td>
+    <td>{{stateInfo.country}}</td>
+    <td>
+      <button (click)="showProperty(stateInfo)">Edit</button>
+    </td>
+    <td>
+      <button (click)="removeState(stateInfo.id, i)">Delete</button>
+    </td>
   </tr>
 
 </table>

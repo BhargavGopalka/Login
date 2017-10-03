@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Country} from './country.model';
+import {AppServiceService} from '../app-service.service';
 
 @Component({
   selector: 'app-country',
@@ -9,78 +10,64 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CountryComponent implements OnInit {
 
-  details = [];
+  countryList: Country[] = [];
+
   tableShow = true;
   formShow = false;
+
   countryForm: FormGroup;
   selectCountry = null;
 
-  constructor( private http: Http, private fb: FormBuilder) { }
-
-  ngOnInit() {
-    this.getData();
+  constructor(private fb: FormBuilder, private  appService: AppServiceService) {
   }
 
-  getData() {
-    const header = new Headers();
-    header.append('Authorization', sessionStorage.getItem('currentUser'));
+  ngOnInit() {
+    this.getCountry();
+  }
 
-    const option = new RequestOptions();
-    option.headers = header;
+  getCountry() {
 
-    const url = `https://mvp-dev-extensionsapi.visumenu.com/country?pageNumber=1&recordsPerPage=20`;
-    this.http.get(url, option)
-      .subscribe( res => {
-        this.details = res.json().payload.data;
-        console.log(this.details);
+    const url = `country?pageNumber=1&recordsPerPage=20`;
+    this.appService.getAPI(url)
+      .subscribe(res => {
+        this.countryList = res.payload.data;
       });
   }
 
   addCountry(formVal: any) {
 
-    const header = new Headers();
-    header.append('Authorization', sessionStorage.getItem('currentUser'));
-
-    const option = new RequestOptions();
-    option.headers = header;
-
-    const url = `https://mvp-dev-extensionsapi.visumenu.com/country`;
+    const url = `country`;
     if (this.selectCountry == null) {
-    this.http.post(url, formVal, option)
-      .subscribe( res => {
-        console.log(res.json());
-        // this.details.push(res.json().payload.data);
-        // console.log(this.details);
-        // this.http.get(url, option)
-        //   .subscribe( respon => {this.details.push(respon.json());
-        //   console.log(this.details); });
-        },
-        msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
+      this.appService.postAPI(url, formVal)
+        .subscribe(() => {
+            this.getCountry();
+            this.tableShow = true;
+            this.formShow = false;
+            // this.details.push(res.json().payload.data);
+            // console.log(this.details);
+            // this.http.get(url, option)
+            //   .subscribe( respon => {this.details.push(respon.json());
+            //   console.log(this.details); });
+          },
+          msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
     } else {
-      this.http.put(url + '/' + this.selectCountry.id, formVal, option)
+      this.appService.putAPI(url + '/' + this.selectCountry.id, formVal)
         .subscribe(res => {
-          console.log(res.json());
-          this.getData();
+          console.log(res);
+          this.getCountry();
+          this.tableShow = true;
+          this.formShow = false;
         });
     }
-    this.getData();
-    this.tableShow = true;
-    this.formShow = false;
   }
 
-  doRemove(id: number, index: number) {
+  removeCountry(id: number, index: number) {
 
-    const header = new Headers();
-    header.append('Authorization', sessionStorage.getItem('currentUser'));
-
-    const option = new RequestOptions();
-    option.headers = header;
-
-    const url = `https://mvp-dev-extensionsapi.visumenu.com/country/${id}`;
-    this.http.delete(url, option)
+    const url = `country/${id}`;
+    this.appService.deleteAPI(url)
       .subscribe(res => {
-        this.details.splice(index, 1);
-        console.log(res.json());
+        this.countryList.splice(index, 1);
+        console.log(res);
       });
   }
 

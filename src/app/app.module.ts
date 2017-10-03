@@ -11,6 +11,9 @@ import { OrganizationComponent } from './organization/organization.component';
 import { CountryComponent } from './country/country.component';
 import { StateInfoComponent } from './state-info/state-info.component';
 import {AppServiceService} from "./app-service.service";
+import { DepartmentComponent } from './department/department.component';
+import { CityComponent } from './city/city.component';
+import { LocationComponent } from './location/location.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import {AppServiceService} from "./app-service.service";
     LoginUserComponent,
     OrganizationComponent,
     CountryComponent,
-    StateInfoComponent
+    StateInfoComponent,
+    DepartmentComponent,
+    CityComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,

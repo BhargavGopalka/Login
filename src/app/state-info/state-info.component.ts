@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { RequestOptions, Headers, Http } from '@angular/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AppServiceService } from '../app-service.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {AppServiceService} from '../app-service.service';
+import {State} from './state.model';
 
 @Component({
   selector: 'app-state-info',
   templateUrl: './state-info.component.html',
   styleUrls: ['./state-info.component.css']
 })
+
 export class StateInfoComponent implements OnInit {
 
-  details = [];
+  stateList: State[] = [];
   countries = [];
 
   showTable = true;
@@ -19,17 +20,18 @@ export class StateInfoComponent implements OnInit {
   stateForm: FormGroup;
   selectState = null;
 
-  constructor( private http: Http, private fb: FormBuilder, private appService: AppServiceService) {}
+  constructor(private fb: FormBuilder, private appService: AppServiceService) {
+  }
 
   ngOnInit() {
     this.getState();
   }
 
-  removeState( id: number, index: number): void {
+  removeState(id: number, index: number): void {
     const url = `state/${id}`;
     this.appService.deleteAPI(url)
-      .subscribe( res => {
-        this.details.splice( index, 1);
+      .subscribe(res => {
+        this.stateList.splice(index, 1);
         console.log(res);
       });
   }
@@ -37,9 +39,9 @@ export class StateInfoComponent implements OnInit {
   getState(): void {
     const url = `state`;
     this.appService.getAPI(url).subscribe(res => {
-    console.log(res);
-    this.details = res.payload.data;
-  });
+      console.log(res);
+      this.stateList = res.payload.data;
+    });
     // const header = new Headers();
     // header.append('Authorization', sessionStorage.getItem('currentUser'));
     //
@@ -62,29 +64,31 @@ export class StateInfoComponent implements OnInit {
     // const option = new RequestOptions();
     // option.headers = header;
     //
-    const url = `state`;
-    const anotherUrl = `state/${this.selectState.id}`;
     if (this.selectState == null) {
-    this.appService.postAPI(url, formValue)
-      .subscribe(res => {
-          console.log(res);
-        },
-        msg => {
-        console.log(`Error: ${msg.status} ${msg.statusText}`);
-        });
+      const url = `state`;
+      this.appService.postAPI(url, formValue)
+        .subscribe(res => {
+            console.log(res);
+            this.getState();
+            this.showTable = true;
+            this.showForm = false;
+          },
+          msg => {
+            console.log(`Error: ${msg.status} ${msg.statusText}`);
+          });
     } else {
+      const anotherUrl = `state/${this.selectState.id}`;
       this.appService.putAPI(anotherUrl, formValue)
         .subscribe(res => {
             console.log(res);
             this.getState();
+            this.showTable = true;
+            this.showForm = false;
           },
           msg => {
             console.log(`Error: ${msg.status} ${msg.statusText}`);
           });
     }
-    this.getState();
-    this.showTable = true;
-    this.showForm = false;
   }
 
   getCountries() {
@@ -119,6 +123,11 @@ export class StateInfoComponent implements OnInit {
       state: [stateData ? stateData.state : ''],
       code: [stateData ? stateData.code : '']
     });
+  }
+
+  goPrev() {
+    this.showForm = false;
+    this.showTable = true;
   }
 
   showProperty(stateData: any) {
