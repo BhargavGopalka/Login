@@ -33,7 +33,10 @@ export class LoginUserComponent implements OnInit {
       });
   }
 
-  //
+  /* Login User Details:
+   * Username: visumenu
+   * Password: visumenu1 */
+
   // doHeader(token: string){
   //   let header = new Headers();
   //   header.append('Authorization', token );

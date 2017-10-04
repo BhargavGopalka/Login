@@ -95,12 +95,20 @@ export class OrganizationComponent implements OnInit {
       });
   }
 
+  searchOrg(value: string) {
+    const searchName = {"name": value};
+    const url = `organization?sortBy=name&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(url)
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
+
   intialForm(orgData: any) {
     this.dataForm = this.fb.group({
       name: [orgData ? orgData.name : '']
     });
   }
-
 
   showForm(orgData: any) {
     this.selectedOrg = orgData;

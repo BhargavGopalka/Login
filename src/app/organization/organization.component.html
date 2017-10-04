@@ -14,12 +14,22 @@
 </div>
 <br><br>
 <div *ngIf="tableShow">
+  <br>
+  <!--<input #searchBox id="search-box" placeholder="Search Organization" (keyup)="searchOrg(searchBox.value)" />-->
+    <!--<div *ngFor="let org of Organization">{{org.name}}</div>-->
+  <br><br>
   <table border="1">
     <tr>
       <th>Number</th>
       <th>Organization</th>
       <th>Update</th>
       <th>Delete</th>
+    </tr>
+
+    <tr>
+      <td colspan="4">
+        <input #searchBox id="search-box" placeholder="Search Organization" (keyup)="searchOrg(searchBox.value)" />
+      </td>
     </tr>
 
     <tr *ngFor="let org of Organization; let i = index">
