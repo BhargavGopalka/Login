@@ -56,6 +56,16 @@ export class StateInfoComponent implements OnInit {
     //   });
   }
 
+  searchState(value: string) {
+    const searchName = {'state': value};
+    const url = `state?records=all&sortBy=state&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(url)
+      .subscribe(res => {
+        this.stateList = res.payload.data;
+        // console.log(this.stateList);
+      });
+  }
+
   addState(formValue: any) {
     //
     // const header = new Headers();

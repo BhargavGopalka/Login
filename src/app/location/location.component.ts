@@ -51,6 +51,16 @@ export class LocationComponent implements OnInit {
     });
   }
 
+  searchStreet(value: string) {
+    const searchName = {'street': value};
+    const url = `location?records=all&sortBy=street&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(url)
+      .subscribe(res => {
+        this.locationList = res.payload.data;
+        // console.log(this.stateList);
+      });
+  }
+
   addLocation(formValue: any) {
     if (this.selectLocation == null) {
       const url = `location`;
@@ -97,7 +107,7 @@ export class LocationComponent implements OnInit {
   }
 
   onSelectCity(value: string) {
-    this.selectedCity = this.cityList.filter( city => {
+    this.selectedCity = this.cityList.filter(city => {
       return city.state_id === +value;
     });
     console.log(this.selectedCity);

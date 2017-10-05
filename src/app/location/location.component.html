@@ -41,6 +41,12 @@
     <th>Remove</th>
   </tr>
 
+  <tr>
+    <td colspan="6">
+      <input #searchBox id="search-box" placeholder="Search Street" (keyup)="searchStreet(searchBox.value)"/>
+    </td>
+  </tr>
+
   <tr *ngFor="let locationInfo of locationList; let i = index">
     <td>{{i + 1}}</td>
     <td>{{locationInfo.street}}</td>

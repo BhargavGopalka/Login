@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Country} from './country.model';
 import {AppServiceService} from '../app-service.service';
+import {Headers, Http, RequestOptions} from '@angular/http';
 
 @Component({
   selector: 'app-country',
@@ -18,7 +19,7 @@ export class CountryComponent implements OnInit {
   countryForm: FormGroup;
   selectCountry = null;
 
-  constructor(private fb: FormBuilder, private  appService: AppServiceService) {
+  constructor(private fb: FormBuilder, private  appService: AppServiceService, private http: Http) {
   }
 
   ngOnInit() {
@@ -31,6 +32,23 @@ export class CountryComponent implements OnInit {
     this.appService.getAPI(url)
       .subscribe(res => {
         this.countryList = res.payload.data;
+      });
+  }
+
+  searchCountry(value: string) {
+    const searchName = {'country': value};
+    const header = new Headers();
+    header.append('search', JSON.stringify(searchName));
+    header.append('Authorization', sessionStorage.getItem('currentUser'))
+    const option = new RequestOptions();
+    option.headers = header;
+
+    const url = `https://mvp-dev-extensionsapi.visumenu.com/country?pageNumber=1&recordsPerPage=20&sortBy=country&sortOrder=asc`;
+    // this.appService.getAPI(url,option)
+    this.http.get(url, option)
+      .subscribe(res => {
+        this.countryList = res.json().payload.data;
+        // console.log(this.countryList);
       });
   }
 

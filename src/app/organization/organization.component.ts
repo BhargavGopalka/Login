@@ -35,6 +35,16 @@ export class OrganizationComponent implements OnInit {
       });
   }
 
+  searchOrg(value: string) {
+    const searchName = {'name': value};
+    const url = `organization?sortBy=name&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(url)
+      .subscribe(res => {
+        this.Organization = res.payload.data;
+        console.log(this.Organization);
+      });
+  }
+
   addOrg(formVal: any) {
     // this.dataForm = this.fb.group({
     //   name: ['formVal']
@@ -92,15 +102,6 @@ export class OrganizationComponent implements OnInit {
         this.Organization.splice(index, 1);
         console.log(res);
         this.getOrg();
-      });
-  }
-
-  searchOrg(value: string) {
-    const searchName = {"name": value};
-    const url = `organization?sortBy=name&sortOrder=asc&search=${JSON.stringify(searchName)}`;
-    this.appService.getAPI(url)
-      .subscribe(res => {
-        console.log(res);
       });
   }
 

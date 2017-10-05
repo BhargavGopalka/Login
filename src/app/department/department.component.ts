@@ -45,6 +45,16 @@ export class DepartmentComponent implements OnInit {
       });
   }
 
+  searchDep(value: string) {
+    const searchName = {'department': value};
+    const url = `department?records=all&sortBy=department&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(url)
+      .subscribe(res => {
+        this.departmentList = res.payload.data;
+        // console.log(this.departmentList);
+      });
+  }
+
   removeDepartment(id: number, index: number): void {
     const url = `department/${id}`;
     this.appService.deleteAPI(url)

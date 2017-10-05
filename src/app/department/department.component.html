@@ -23,6 +23,12 @@
     <th>Remove</th>
   </tr>
 
+  <tr>
+    <td colspan="5">
+      <input #searchBox id="search-box" placeholder="Search Department" (keyup)="searchDep(searchBox.value)"/>
+    </td>
+  </tr>
+
   <tr *ngFor="let departmentInfo of departmentList; let i = index">
     <td>{{i + 1}}</td>
     <td>{{departmentInfo.department}}</td>

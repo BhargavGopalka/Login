@@ -43,6 +43,16 @@ export class CityComponent implements OnInit {
     });
   }
 
+  searchCity(value: string) {
+    const searchName = {'name': value};
+    const url = `city?records=all&sortBy=name&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(url)
+      .subscribe(res => {
+        this.cityList = res.payload.data;
+        // console.log(this.stateList);
+      });
+  }
+
   addCity(formValue: any) {
     if (this.selectCity == null) {
       const url = `city`;
