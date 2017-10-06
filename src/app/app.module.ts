@@ -15,6 +15,7 @@ import {DepartmentComponent} from './department/department.component';
 import {CityComponent} from './city/city.component';
 import {LocationComponent} from './location/location.component';
 import { ApplicationComponent } from './application/application.component';
+import { PhoneDetailComponent } from './phone-detail/phone-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ApplicationComponent } from './application/application.component';
     DepartmentComponent,
     CityComponent,
     LocationComponent,
-    ApplicationComponent
+    ApplicationComponent,
+    PhoneDetailComponent
   ],
   imports: [
     BrowserModule,

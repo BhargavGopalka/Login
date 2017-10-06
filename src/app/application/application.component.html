@@ -25,6 +25,12 @@
       <th>Delete</th>
     </tr>
 
+    <tr>
+      <td colspan="5">
+        <input #searchBox id="search-box" placeholder="Search App" (keyup)="searchApp(searchBox.value)"/>
+      </td>
+    </tr>
+
     <tr *ngFor="let appInfo of appList; let i = index">
       <th>{{i + 1}}</th>
       <th>{{appInfo.url}}</th>

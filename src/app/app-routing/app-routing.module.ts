@@ -9,6 +9,7 @@ import {DepartmentComponent} from '../department/department.component';
 import {CityComponent} from "../city/city.component";
 import {LocationComponent} from "../location/location.component";
 import {ApplicationComponent} from "../application/application.component";
+import {PhoneDetailComponent} from "../phone-detail/phone-detail.component";
 
 export const routes: Routes = [
   {
@@ -67,6 +68,14 @@ export const routes: Routes = [
   {
     path: 'application',
     component: ApplicationComponent
+  },
+  {
+    path: 'phone',
+    component: PhoneDetailComponent
+  },
+  {
+    path: 'infoTable/phone',
+    component: PhoneDetailComponent
   },
   {
     path: 'infoTable/application',

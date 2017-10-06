@@ -34,6 +34,16 @@ export class ApplicationComponent implements OnInit {
       });
   }
 
+  searchApp(value: string) {
+    const searchName = {'url': value};
+    const url = `app?records=all&sortBy=url&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(url)
+      .subscribe(res => {
+        this.appList = res.payload.data;
+        // console.log(this.stateList);
+      });
+  }
+
   addApp(formVal: any) {
     const url = `app`;
     if (this.selectApp == null) {
