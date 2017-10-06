@@ -121,10 +121,10 @@ export class PhoneDetailComponent implements OnInit {
         .subscribe(res => {
             console.log(res);
             this.getNumberDetail();
+            this.selectedState = [];
+            this.selectedCity = [];
             this.showTable = true;
             this.showForm = false;
-            this.selectedCity.slice();
-            this.selectedState.slice();
           },
           msg => {
             console.log(`Error: ${msg.status} ${msg.statusText}`);
@@ -168,10 +168,10 @@ export class PhoneDetailComponent implements OnInit {
   }
 
   goPrev() {
+    this.selectedState = [];
+    this.selectedCity = [];
     this.showForm = false;
     this.showTable = true;
-    this.selectedCity.slice();
-    this.selectedState.slice();
   }
 
   showProperty(numberData: any) {
