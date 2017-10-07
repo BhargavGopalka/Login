@@ -6,6 +6,7 @@ import {Organization} from '../organization/organization.model';
 import {Country} from '../country/country.model';
 import {State} from '../state-info/state.model';
 import {City} from '../city/city.model';
+import {Location} from '../location/location.model';
 
 @Component({
   selector: 'app-phone-detail',
@@ -46,12 +47,12 @@ export class PhoneDetailComponent implements OnInit {
 
   getOrg() {
     if (this.organizationList.length === 0) {
-    const url = `organization`;
-    this.appService.getAPI(url)
-      .subscribe(res => {
-        console.log(res);
-        this.organizationList = res.payload.data;
-      });
+      const url = `organization`;
+      this.appService.getAPI(url)
+        .subscribe(res => {
+          console.log(res);
+          this.organizationList = res.payload.data;
+        });
     }
   }
 
@@ -87,12 +88,12 @@ export class PhoneDetailComponent implements OnInit {
 
   getCity() {
     if (this.cityList.length === 0) {
-    const url = `city`;
-    this.appService.getAPI(url)
-      .subscribe(res => {
-        console.log(res);
-        this.cityList = res.payload.data;
-      });
+      const url = `city`;
+      this.appService.getAPI(url)
+        .subscribe(res => {
+          console.log(res);
+          this.cityList = res.payload.data;
+        });
     }
   }
 
@@ -156,12 +157,12 @@ export class PhoneDetailComponent implements OnInit {
   initial(numberData: any) {
     this.numberForm = this.fb.group({
       phone_number: [numberData ? numberData.phone_number : ''],
-      phone_type_id: [numberData ? numberData.phone_type_id : ''],
+      phone_type_id: [numberData ? numberData.phone_list_id : ''],
       org_id: [numberData ? numberData.org_id : ''],
       country_id: [numberData ? numberData.country_id : ''],
       state_id: [numberData ? numberData.state_id : ''],
       city_id: [numberData ? numberData.city_id : ''],
-      location_id: [numberData ? numberData.location_id : ''],
+      street: [numberData ? numberData.street : ''],
       postal_code: [numberData ? numberData.postal_code : ''],
       isCrawl: [numberData ? numberData.isCrawl : ''],
     });

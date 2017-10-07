@@ -10,12 +10,13 @@ import {LoginUserComponent} from './login-user/login-user.component';
 import {OrganizationComponent} from './organization/organization.component';
 import {CountryComponent} from './country/country.component';
 import {StateInfoComponent} from './state-info/state-info.component';
-import {AppServiceService} from "./app-service.service";
+import {AppServiceService} from './app-service.service';
 import {DepartmentComponent} from './department/department.component';
 import {CityComponent} from './city/city.component';
 import {LocationComponent} from './location/location.component';
-import { ApplicationComponent } from './application/application.component';
-import { PhoneDetailComponent } from './phone-detail/phone-detail.component';
+import {ApplicationComponent} from './application/application.component';
+import {PhoneDetailComponent} from './phone-detail/phone-detail.component';
+import {AuthGuard} from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { PhoneDetailComponent } from './phone-detail/phone-detail.component';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AppServiceService],
+  providers: [AppServiceService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -6,88 +6,113 @@ import {OrganizationComponent} from '../organization/organization.component';
 import {CountryComponent} from '../country/country.component';
 import {StateInfoComponent} from '../state-info/state-info.component';
 import {DepartmentComponent} from '../department/department.component';
-import {CityComponent} from "../city/city.component";
-import {LocationComponent} from "../location/location.component";
-import {ApplicationComponent} from "../application/application.component";
-import {PhoneDetailComponent} from "../phone-detail/phone-detail.component";
+import {CityComponent} from '../city/city.component';
+import {LocationComponent} from '../location/location.component';
+import {ApplicationComponent} from '../application/application.component';
+import {PhoneDetailComponent} from '../phone-detail/phone-detail.component';
+import {AuthGuard} from '../auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
-    component: LoginUserComponent
+    component: LoginUserComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'department',
-    component: DepartmentComponent
+    component: DepartmentComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'infoTable',
-    component: InfoTableComponent
+    component: InfoTableComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'organization',
-    component: OrganizationComponent
+    component: OrganizationComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'infoTable/organization',
-    component: OrganizationComponent
+    component: OrganizationComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'infoTable/login',
+    component: LoginUserComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'city',
-    component: CityComponent
+    component: CityComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'infoTable/city',
-    component: CityComponent
+    component: CityComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'location',
-    component: LocationComponent
+    component: LocationComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'infoTable/location',
-    component: LocationComponent
+    component: LocationComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'infoTable/department',
-    component: DepartmentComponent
+    component: DepartmentComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'country',
-    component: CountryComponent
+    component: CountryComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'infoTable/country',
-    component: CountryComponent
+    component: CountryComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'application',
-    component: ApplicationComponent
+    component: ApplicationComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'phone',
-    component: PhoneDetailComponent
+    component: PhoneDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'infoTable/phone',
-    component: PhoneDetailComponent
+    component: PhoneDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'infoTable/application',
-    component: ApplicationComponent
+    component: ApplicationComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'state',
-    component: StateInfoComponent
+    component: StateInfoComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'infoTable/state',
-    component: StateInfoComponent
+    component: StateInfoComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

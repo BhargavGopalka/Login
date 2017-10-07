@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Http, RequestOptions, Headers } from "@angular/http";
+import {Component, OnInit} from '@angular/core';
+import {Headers, Http, RequestOptions} from '@angular/http';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-info-table',
@@ -10,7 +11,7 @@ export class InfoTableComponent implements OnInit {
 
   details = [];
 
-  constructor( private http: Http) {
+  constructor(private http: Http, private routes: Router) {
   }
 
   ngOnInit() {
@@ -19,14 +20,14 @@ export class InfoTableComponent implements OnInit {
 
   doHeader() {
     const header = new Headers();
-    header.append('Authorization', sessionStorage.getItem('currentUser') );
+    header.append('Authorization', sessionStorage.getItem('currentUser'));
     const option = new RequestOptions();
     option.headers = header;
     const url = `https://mvp-dev-extensionsapi.visumenu.com/phoneDetail?pageNumber=1&recordsPerPage=3&totalPage=0&sortBy=phone_number&sortOrder=asc`;
     this.http.get(url, option)
       .subscribe(res => {
 
-        this.details = res.json().payload.data;
+          this.details = res.json().payload.data;
 
           // const response = res.json();
           // const path = response.payload.data;
@@ -35,5 +36,10 @@ export class InfoTableComponent implements OnInit {
           console.log(this.details);
         },
         msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
+  }
+
+  logOut() {
+    sessionStorage.clear();
+    this.routes.navigate(['login']);
   }
 }

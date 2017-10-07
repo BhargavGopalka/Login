@@ -14,7 +14,7 @@
     Organization: <select formControlName="org_id">
     <option value="0">Select Organization</option>
     <option *ngFor="let org of organizationList" value={{org.id}}>{{org.name}}</option>
-    </select><br><br>
+  </select><br><br>
 
     Country: <select formControlName="country_id" (change)="onSelectState($event.target.value)">
     <option value="0">Select Country</option>
@@ -31,9 +31,9 @@
     <option *ngFor="let city of selectedCity" value={{city.id}}>{{city.name}}</option>
   </select><br><br>
 
-    Street: <select formControlName="location_id">
+    Street: <select formControlName="street">
     <option value="0">Select Street</option>
-    <option *ngFor="let street of streetList" value={{street.street}}>{{street.street}}</option>
+    <option *ngFor="let street of streetList" value="{{street.street}}">{{street.street}}</option>
   </select><br><br>
 
     Postal Code: <input type="text" placeholder="Enter Code" formControlName="postal_code"><br><br>
