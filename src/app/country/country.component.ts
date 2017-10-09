@@ -39,7 +39,7 @@ export class CountryComponent implements OnInit {
     const searchName = {'country': value};
     const header = new Headers();
     header.append('search', JSON.stringify(searchName));
-    header.append('Authorization', sessionStorage.getItem('currentUser'))
+    header.append('Authorization', sessionStorage.getItem('currentUser'));
     const option = new RequestOptions();
     option.headers = header;
 

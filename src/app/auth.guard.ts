@@ -1,5 +1,26 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, CanDeactivate, Router, RouterStateSnapshot} from '@angular/router';
+
+// @Injectable()
+// export class SaveDataGuard implements CanDeactivate<OrganizationDataComponent> {
+//   canDeactivate(component: OrganizationDataComponent): boolean {
+//     if (component.dataForm.dirty) {
+//       const name = component.dataForm.get('name').value;
+//       return confirm(`Navigate away and lose all changes to ${name}?`);
+//     }
+//     return true;
+//   }
+// }
+
+@Injectable()
+export class SaveDataGuard implements CanDeactivate<any> {
+  canDeactivate(component: any): boolean {
+    if (component.form.dirty) {
+      return confirm(`Navigate away and lose all changes`);
+    }
+    return true;
+  }
+}
 
 @Injectable()
 export class AuthGuard implements CanActivate {

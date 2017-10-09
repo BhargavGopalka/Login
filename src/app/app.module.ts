@@ -16,7 +16,9 @@ import {CityComponent} from './city/city.component';
 import {LocationComponent} from './location/location.component';
 import {ApplicationComponent} from './application/application.component';
 import {PhoneDetailComponent} from './phone-detail/phone-detail.component';
-import {AuthGuard} from './auth.guard';
+import {AuthGuard, SaveDataGuard} from './auth.guard';
+import {OrganizationDataComponent} from './organization-data/organization-data.component';
+import { CountryDataComponent } from './country-data/country-data.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import {AuthGuard} from './auth.guard';
     CityComponent,
     LocationComponent,
     ApplicationComponent,
-    PhoneDetailComponent
+    PhoneDetailComponent,
+    OrganizationDataComponent,
+    CountryDataComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,7 @@ import {AuthGuard} from './auth.guard';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AppServiceService, AuthGuard],
+  providers: [AppServiceService, AuthGuard, SaveDataGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

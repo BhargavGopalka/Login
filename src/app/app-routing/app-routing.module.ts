@@ -10,7 +10,9 @@ import {CityComponent} from '../city/city.component';
 import {LocationComponent} from '../location/location.component';
 import {ApplicationComponent} from '../application/application.component';
 import {PhoneDetailComponent} from '../phone-detail/phone-detail.component';
-import {AuthGuard} from '../auth.guard';
+import {AuthGuard, SaveDataGuard} from '../auth.guard';
+import {OrganizationDataComponent} from "../organization-data/organization-data.component";
+import {CountryDataComponent} from "../country-data/country-data.component";
 
 export const routes: Routes = [
   {
@@ -68,6 +70,30 @@ export const routes: Routes = [
     path: 'infoTable/location',
     component: LocationComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'orgData',
+    component: OrganizationDataComponent,
+    canActivate: [AuthGuard],
+    canDeactivate: [SaveDataGuard]
+  },
+  {
+    path: 'infoTable/orgData',
+    component: OrganizationDataComponent,
+    canActivate: [AuthGuard],
+    canDeactivate: [SaveDataGuard]
+  },
+  {
+    path: 'countryData',
+    component: CountryDataComponent,
+    canActivate: [AuthGuard],
+    canDeactivate: [SaveDataGuard]
+  },
+  {
+    path: 'infoTable/countryData',
+    component: CountryDataComponent,
+    canActivate: [AuthGuard],
+    canDeactivate: [SaveDataGuard]
   },
   {
     path: 'infoTable/department',
