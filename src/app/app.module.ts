@@ -18,7 +18,8 @@ import {ApplicationComponent} from './application/application.component';
 import {PhoneDetailComponent} from './phone-detail/phone-detail.component';
 import {AuthGuard, SaveDataGuard} from './auth.guard';
 import {OrganizationDataComponent} from './organization-data/organization-data.component';
-import { CountryDataComponent } from './country-data/country-data.component';
+import {CountryDataComponent} from './country-data/country-data.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CountryDataComponent } from './country-data/country-data.component';
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     AppRoutingModule
   ],
   providers: [AppServiceService, AuthGuard, SaveDataGuard],

@@ -46,38 +46,47 @@
 </fieldset>
 <br><br>
 
-<table border="1" *ngIf="showTable">
-  <tr>
-    <th>Index</th>
-    <th>Organization</th>
-    <th>Number</th>
-    <th>Department</th>
-    <th>Extension</th>
-    <th>Country</th>
-    <th>State</th>
-    <th>City</th>
-    <th>Street</th>
-    <th>Postal Code</th>
-    <th>Update</th>
-    <th>Remove</th>
-  </tr>
+<div *ngIf="showTable">
+  <table border="1">
+    <tr>
+      <th>Index</th>
+      <th>Organization</th>
+      <th>Number</th>
+      <th>Department</th>
+      <th>Extension</th>
+      <th>Country</th>
+      <th>State</th>
+      <th>City</th>
+      <th>Street</th>
+      <th>Postal Code</th>
+      <th>Update</th>
+      <th>Remove</th>
+    </tr>
 
-  <tr *ngFor="let numberInfo of numberList; let i = index">
-    <td>{{i + 1}}</td>
-    <td>{{numberInfo.org}}</td>
-    <td>{{numberInfo.phone_number}}</td>
-    <td>{{numberInfo.department}}</td>
-    <td>{{numberInfo.extension}}</td>
-    <td>{{numberInfo.country}}</td>
-    <td>{{numberInfo.state}}</td>
-    <td>{{numberInfo.city}}</td>
-    <td>{{numberInfo.street}}</td>
-    <td>{{numberInfo.postal_code}}</td>
-    <td>
-      <button (click)="showProperty(numberInfo)">Edit</button>
-    </td>
-    <td>
-      <button (click)="removeNumber(numberInfo.phone_id, i)">Delete</button>
-    </td>
-  </tr>
-</table>
+    <tr *ngFor="let numberInfo of numberList | paginate: { itemsPerPage: pageItems, currentPage: p, totalItems: tPage }; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{numberInfo.org}}</td>
+      <td>{{numberInfo.phone_number}}</td>
+      <td>{{numberInfo.department}}</td>
+      <td>{{numberInfo.extension}}</td>
+      <td>{{numberInfo.country}}</td>
+      <td>{{numberInfo.state}}</td>
+      <td>{{numberInfo.city}}</td>
+      <td>{{numberInfo.street}}</td>
+      <td>{{numberInfo.postal_code}}</td>
+      <td>
+        <button (click)="showProperty(numberInfo)">Edit</button>
+      </td>
+      <td>
+        <button (click)="removeNumber(numberInfo.phone_id, i)">Delete</button>
+      </td>
+    </tr>
+  </table>
+  <div>
+  <pagination-controls (pageChange)="p = $event;getNumberDetail()"></pagination-controls>
+    <label>Records per Page: </label>
+    <select (change)="onChange($event.target.value)">
+      <option *ngFor="let pageRecords of RecordsPerPage" value="{{pageRecords}}">{{pageRecords}}</option>
+    </select>
+  </div>
+</div>

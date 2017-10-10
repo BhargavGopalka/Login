@@ -14,10 +14,15 @@ import {Location} from '../location/location.model';
   styleUrls: ['./phone-detail.component.css']
 })
 export class PhoneDetailComponent implements OnInit {
+  p = 1;
+  tPage = null;
+  pageItems: number = 20;
+  value: number;
 
   showTable = true;
   showForm = false;
 
+  RecordsPerPage = [20, 50, 100, 150];
   numberList: PhoneDetail[] = [];
   organizationList: Organization[] = [];
   countryList: Country[] = [];
@@ -37,10 +42,19 @@ export class PhoneDetailComponent implements OnInit {
     this.firstFunction();
   }
 
-  getNumberDetail(): void {
-    const url = `phoneDetail?pageNumber=1&recordsPerPage=40&totalPage=0&sortBy=org&sortOrder=asc`;
+  onChange(value) {
+    this.pageItems = +value;
+    this.getNumberDetail();
+    // console.log(this.pageItems);
+  }
+
+  getNumberDetail() {
+    // console.log(this.pageItems);
+    const url = `phoneDetail?pageNumber=${this.p}&recordsPerPage=${this.pageItems}&sortBy=org&sortOrder=asc`;
     this.appService.getAPI(url)
       .subscribe(res => {
+        // console.log(res);
+        this.tPage = res.pager.totalRecords;
         this.numberList = res.payload.data;
       });
   }
@@ -50,7 +64,7 @@ export class PhoneDetailComponent implements OnInit {
       const url = `organization`;
       this.appService.getAPI(url)
         .subscribe(res => {
-          console.log(res);
+          // console.log(res);
           this.organizationList = res.payload.data;
         });
     }
@@ -61,7 +75,7 @@ export class PhoneDetailComponent implements OnInit {
       const url = `country`;
       this.appService.getAPI(url)
         .subscribe(res => {
-          console.log(res);
+          // console.log(res);
           this.countryList = res.payload.data;
         });
     }
@@ -72,7 +86,7 @@ export class PhoneDetailComponent implements OnInit {
       const url = `state`;
       this.appService.getAPI(url)
         .subscribe(res => {
-          console.log(res);
+          // console.log(res);
           this.stateList = res.payload.data;
         });
     }
@@ -83,7 +97,7 @@ export class PhoneDetailComponent implements OnInit {
     this.selectedState = this.stateList.filter(state => {
       return state.country_id === +value;
     });
-    console.log(this.selectedState);
+    // console.log(this.selectedState);
   }
 
   getCity() {
@@ -91,7 +105,7 @@ export class PhoneDetailComponent implements OnInit {
       const url = `city`;
       this.appService.getAPI(url)
         .subscribe(res => {
-          console.log(res);
+          // console.log(res);
           this.cityList = res.payload.data;
         });
     }
@@ -101,7 +115,7 @@ export class PhoneDetailComponent implements OnInit {
     this.selectedCity = this.cityList.filter(city => {
       return city.state_id === +value;
     });
-    console.log(this.selectedCity);
+    // console.log(this.selectedCity);
   }
 
   getStreet() {
@@ -120,7 +134,7 @@ export class PhoneDetailComponent implements OnInit {
       const url = `phone`;
       this.appService.postAPI(url, formValue)
         .subscribe(res => {
-            console.log(res);
+            // console.log(res);
             this.getNumberDetail();
             this.selectedState = [];
             this.selectedCity = [];
@@ -134,7 +148,7 @@ export class PhoneDetailComponent implements OnInit {
       const url = `phone/${this.selectNumber.phone_id}`;
       this.appService.putAPI(url, formValue)
         .subscribe(res => {
-            console.log(res);
+            // console.log(res);
             this.getNumberDetail();
             this.showTable = true;
             this.showForm = false;
@@ -150,7 +164,7 @@ export class PhoneDetailComponent implements OnInit {
     this.appService.deleteAPI(url)
       .subscribe(res => {
         this.numberList.splice(index, 1);
-        console.log(res);
+        // console.log(res);
       });
   }
 
