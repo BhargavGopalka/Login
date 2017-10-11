@@ -31,7 +31,8 @@
       </td>
     </tr>
 
-    <tr *ngFor="let appInfo of appList; let i = index">
+    <tr
+      *ngFor="let appInfo of appList | paginate:{itemsPerPage: items, currentPage: pageNumber, totalItems: totalNumRecords}; let i = index">
       <th>{{i + 1}}</th>
       <th>{{appInfo.url}}</th>
       <th>{{appInfo.description}}</th>
@@ -43,5 +44,15 @@
       </th>
     </tr>
   </table>
-
 </div>
+
+<div>
+  <pagination-controls (pageChange)="pageNumber = $event; getApp()"></pagination-controls>
+  <label>
+    <label>Records Per Page:</label>
+    <select (change)="numberChange($event.target.value)">
+      <option *ngFor="let num of recordsNumArray" value="{{num}}">{{num}}</option>
+    </select>
+  </label>
+</div>
+

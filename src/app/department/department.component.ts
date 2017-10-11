@@ -10,11 +10,16 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 })
 export class DepartmentComponent implements OnInit {
 
+  items = 20;
+  pageNumber = 1;
+  totalNumRecords: number;
+
   showTable = true;
   showForm = false;
 
   departmentList: Department[] = [];
   organizations = [];
+  RecordsPerPage: any[] = [20, 50, 100, 150];
 
   departmentForm: FormGroup;
   selectDepartment = null;
@@ -26,11 +31,18 @@ export class DepartmentComponent implements OnInit {
     this.getDepartment();
   }
 
+  numberChange(val) {
+    this.pageNumber = 1;
+    this.items = +val;
+    this.getDepartment();
+  }
+
   getDepartment(): void {
-    const url = `department`;
+    const url = `department?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
     this.appService.getAPI(url)
       .subscribe(res => {
         console.log(res);
+        this.totalNumRecords = res.pager.totalRecords;
         this.departmentList = res.payload.data;
       });
   }

@@ -10,8 +10,13 @@ import {AppServiceService} from '../app-service.service';
 })
 export class CityComponent implements OnInit {
 
+  items = 5;
+  pageNumber = 1;
+  totalNumRecords: number;
+
   cityList: City[] = [];
   stateList = [];
+  RecordsNumArray: any[] = [5, 10, 15, 20];
 
   showTable = true;
   showForm = false;
@@ -35,10 +40,17 @@ export class CityComponent implements OnInit {
       });
   }
 
+  numberChange(val) {
+    this.pageNumber = 1;
+    this.items = +val;
+    this.getCity();
+  }
+
   getCity(): void {
-    const url = `city`;
+    const url = `city?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
     this.appService.getAPI(url).subscribe(res => {
       console.log(res);
+      this.totalNumRecords = res.pager.totalRecords;
       this.cityList = res.payload.data;
     });
   }

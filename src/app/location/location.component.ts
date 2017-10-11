@@ -13,6 +13,10 @@ import {City} from '../city/city.model';
 })
 export class LocationComponent implements OnInit {
 
+  items = 10;
+  pageNumber = 1;
+  totalNumRecords: number;
+
   locationList: Location[] = [];
   stateList: State[];
   organizationList = [];
@@ -20,6 +24,7 @@ export class LocationComponent implements OnInit {
   cityList: City[] = [];
   selectedState: State[] = [];
   selectedCity: City[] = [];
+  recordsNumArray: any[] = [10, 20, 50, 100];
 
   showTable = true;
   showForm = false;
@@ -43,10 +48,17 @@ export class LocationComponent implements OnInit {
       });
   }
 
+  numberChange(val) {
+    this.pageNumber = 1;
+    this.items = +val;
+    this.getLocation();
+  }
+
   getLocation(): void {
-    const url = `location?records=all`;
+    const url = `location?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
     this.appService.getAPI(url).subscribe(res => {
       console.log(res);
+      this.totalNumRecords = res.pager.totalRecords;
       this.locationList = res.payload.data;
     });
   }

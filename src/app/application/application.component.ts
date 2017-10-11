@@ -10,7 +10,12 @@ import {AppServiceService} from '../app-service.service';
 })
 export class ApplicationComponent implements OnInit {
 
+  items = 1;
+  pageNumber = 1;
+  totalNumRecords: number;
+
   appList: Application[] = [];
+  recordsNumArray: any[] = [1, 2, 3, 4];
 
   appForm: FormGroup;
   selectApp = null;
@@ -25,11 +30,18 @@ export class ApplicationComponent implements OnInit {
     this.getApp();
   }
 
+  numberChange(val) {
+    this.pageNumber = 1;
+    this.items = +val;
+    this.getApp();
+  }
+
   getApp() {
-    const url = `app?records=all`;
+    const url = `app?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
     this.appService.getAPI(url)
       .subscribe(res => {
         console.log(res);
+        this.totalNumRecords = res.pager.totalRecords;
         this.appList = res.payload.data;
       });
   }

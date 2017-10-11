@@ -31,7 +31,8 @@
     </td>
   </tr>
 
-  <tr *ngFor="let cityInfo of cityList; let i = index">
+  <tr
+    *ngFor="let cityInfo of cityList | paginate:{itemsPerPage: items, currentPage: pageNumber, totalItems: totalNumRecords}; let i = index">
     <td>{{i + 1}}</td>
     <td>{{cityInfo.name}}</td>
     <td>{{cityInfo.state}}</td>
@@ -43,5 +44,14 @@
       <button (click)="removeCity(cityInfo.id, i)">Delete</button>
     </td>
   </tr>
-
 </table>
+
+<div>
+  <pagination-controls (pageChange)="pageNumber = $event; getCity()"></pagination-controls>
+  <label>
+    <label>Records Per Page:</label>
+    <select (change)="numberChange($event.target.value)">
+      <option *ngFor="let num of RecordsNumArray" value="{{num}}">{{num}}</option>
+    </select>
+  </label>
+</div>
