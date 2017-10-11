@@ -11,6 +11,7 @@ export class AppServiceService {
   constructor(private http: Http) {
   }
 
+  /* GET API - read only, get all records */
   getAPI(endpoint: string): Observable<any> {
     return this.http.get(this.baseUrl + endpoint, this.Headers)
       .map(res => {
@@ -18,6 +19,7 @@ export class AppServiceService {
       });
   }
 
+  /* Delete record */
   deleteAPI(endpoint: string): Observable<any> {
     return this.http.delete(this.baseUrl + endpoint, this.Headers)
       .map(res => {
@@ -25,6 +27,7 @@ export class AppServiceService {
       });
   }
 
+  /* Add record */
   postAPI(endpoint: string, formVal: any): Observable<any> {
     return this.http.post(this.baseUrl + endpoint, formVal, this.Headers)
       .map(res => {
@@ -32,6 +35,7 @@ export class AppServiceService {
       });
   }
 
+  /* Update record */
   putAPI(endpoint: string, formVal: any): Observable<any> {
     return this.http.put(this.baseUrl + endpoint, formVal, this.Headers)
       .map(res => {

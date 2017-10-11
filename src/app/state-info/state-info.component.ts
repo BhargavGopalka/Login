@@ -11,8 +11,13 @@ import {State} from './state.model';
 
 export class StateInfoComponent implements OnInit {
 
+  items = 5;
+  pageNumber = 1;
+  totalNumRecords: number;
+
   stateList: State[] = [];
   countries = [];
+  RecordsPerPage: any[] = [5, 10, 15, 20];
 
   showTable = true;
   showForm = false;
@@ -36,10 +41,17 @@ export class StateInfoComponent implements OnInit {
       });
   }
 
+  numChange(val) {
+    this.pageNumber = 1;
+    this.items = +val;
+    this.getState();
+  }
+
   getState(): void {
-    const url = `state`;
+    const url = `state?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
     this.appService.getAPI(url).subscribe(res => {
       console.log(res);
+      this.totalNumRecords = res.pager.totalRecords;
       this.stateList = res.payload.data;
     });
     // const header = new Headers();

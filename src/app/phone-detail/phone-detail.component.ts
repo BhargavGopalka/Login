@@ -16,8 +16,7 @@ import {Location} from '../location/location.model';
 export class PhoneDetailComponent implements OnInit {
   p = 1;
   tPage = null;
-  pageItems: number = 20;
-  value: number;
+  pageItems = 20;
 
   showTable = true;
   showForm = false;
@@ -43,6 +42,7 @@ export class PhoneDetailComponent implements OnInit {
   }
 
   onChange(value) {
+    this.p = 1;
     this.pageItems = +value;
     this.getNumberDetail();
     // console.log(this.pageItems);
@@ -133,8 +133,7 @@ export class PhoneDetailComponent implements OnInit {
     if (this.selectNumber == null) {
       const url = `phone`;
       this.appService.postAPI(url, formValue)
-        .subscribe(res => {
-            // console.log(res);
+        .subscribe(() => {
             this.getNumberDetail();
             this.selectedState = [];
             this.selectedCity = [];
@@ -147,8 +146,7 @@ export class PhoneDetailComponent implements OnInit {
     } else {
       const url = `phone/${this.selectNumber.phone_id}`;
       this.appService.putAPI(url, formValue)
-        .subscribe(res => {
-            // console.log(res);
+        .subscribe(() => {
             this.getNumberDetail();
             this.showTable = true;
             this.showForm = false;
@@ -162,9 +160,8 @@ export class PhoneDetailComponent implements OnInit {
   removeNumber(id: number, index: number): void {
     const url = `phone/${id}`;
     this.appService.deleteAPI(url)
-      .subscribe(res => {
+      .subscribe(() => {
         this.numberList.splice(index, 1);
-        // console.log(res);
       });
   }
 

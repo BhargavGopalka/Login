@@ -31,7 +31,8 @@
     </td>
   </tr>
 
-  <tr *ngFor="let stateInfo of stateList; let i = index">
+  <tr
+    *ngFor="let stateInfo of stateList | paginate:{itemsPerPage: items, currentPage: pageNumber, totalItems: totalNumRecords}; let i = index">
     <td>{{i + 1}}</td>
     <td>{{stateInfo.state}}</td>
     <td>{{stateInfo.code}}</td>
@@ -43,5 +44,14 @@
       <button (click)="removeState(stateInfo.id, i)">Delete</button>
     </td>
   </tr>
-
 </table>
+
+<div>
+  <pagination-controls (pageChange)="pageNumber = $event; getState()"></pagination-controls>
+  <label>
+    <label>Records Per Page:</label>
+    <select (change)="numChange($event.target.value)">
+      <option *ngFor="let num of RecordsPerPage" value="{{num}}">{{num}}</option>
+    </select>
+  </label>
+</div>

@@ -32,7 +32,8 @@
       </td>
     </tr>
 
-    <tr *ngFor="let org of Organization; let i = index">
+    <tr
+      *ngFor="let org of Organization | paginate: {itemsPerPage: items, currentPage: p, totalItems: totalNumRecords}; let i = index">
       <th>{{i+1}}</th>
       <th>{{org.name}}</th>
       <th>
@@ -43,5 +44,12 @@
       </th>
     </tr>
   </table>
+  <div>
+    <pagination-controls (pageChange)="p = $event;getOrg()"></pagination-controls>
+    <label>Records Per Page:</label>
+    <select (change)="recordChange($event.target.value)">
+      <option *ngFor="let num of NumberOfRecords" value="{{num}}">{{num}}</option>
+    </select>
+  </div>
 
 </div>

@@ -34,7 +34,8 @@
       </td>
     </tr>
 
-    <tr *ngFor="let countryInfo of countryList; let i = index">
+    <tr
+      *ngFor="let countryInfo of countryList | paginate:{itemsPerPage: items, currentPage: pageNumber, totalItems: totalNumRecords}; let i = index">
       <td>{{i + 1}}</td>
       <td>{{countryInfo.country}}</td>
       <td>{{countryInfo.code}}</td>
@@ -47,4 +48,15 @@
       </td>
     </tr>
   </table>
+
+  <div>
+    <pagination-controls (pageChange)="pageNumber = $event; getCountry()"></pagination-controls>
+    <label>Records Per Page:</label>
+    <label>
+      <select (change)="recordChange($event.target.value)">
+        <option *ngFor="let num of RecordsPerPage" value="{{num}}">{{num}}</option>
+      </select>
+    </label>
+  </div>
+
 </div>

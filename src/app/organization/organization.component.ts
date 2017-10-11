@@ -10,7 +10,12 @@ import {Organization} from './organization.model';
 })
 export class OrganizationComponent implements OnInit {
 
+  p = 1;
+  items = 3;
+  totalNumRecords: number;
+
   Organization: Organization[] = [];
+  NumberOfRecords: any[] = [3, 5, 10, 20];
 
   dataForm: FormGroup;
   selectedOrg = null;
@@ -25,12 +30,19 @@ export class OrganizationComponent implements OnInit {
     this.getOrg();
   }
 
+  recordChange(val) {
+    this.p = 1;
+    this.items = +val;
+    this.getOrg();
+  }
+
   getOrg() {
-    const url = `organization?pageNumber=1&recordsPerPage=20`;
+    const url = `organization?pageNumber=${this.p}&recordsPerPage=${this.items}`;
     this.appService.getAPI(url)
       .subscribe(res => {
         console.log(res);
         this.Organization = res.payload.data;
+        this.totalNumRecords = res.pager.totalRecords;
         // console.log(this.details);
       });
   }

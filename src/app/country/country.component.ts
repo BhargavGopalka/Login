@@ -11,7 +11,12 @@ import {Headers, Http, RequestOptions} from '@angular/http';
 })
 export class CountryComponent implements OnInit {
 
+  items = 5;
+  pageNumber = 1;
+  totalNumRecords: number;
+
   countryList: Country[] = [];
+  RecordsPerPage: any[] = [5, 10, 15, 20];
 
   tableShow = true;
   formShow = false;
@@ -26,11 +31,18 @@ export class CountryComponent implements OnInit {
     this.getCountry();
   }
 
+  recordChange(val) {
+    this.pageNumber = 1;
+    this.items = +val;
+    this.getCountry();
+  }
+
   getCountry() {
 
-    const url = `country?pageNumber=1&recordsPerPage=20`;
+    const url = `country?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
     this.appService.getAPI(url)
       .subscribe(res => {
+        this.totalNumRecords = res.pager.totalRecords;
         this.countryList = res.payload.data;
       });
   }

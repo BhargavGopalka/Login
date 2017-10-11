@@ -63,7 +63,8 @@
       <th>Remove</th>
     </tr>
 
-    <tr *ngFor="let numberInfo of numberList | paginate: { itemsPerPage: pageItems, currentPage: p, totalItems: tPage }; let i = index">
+    <tr
+      *ngFor="let numberInfo of numberList | paginate: { itemsPerPage: pageItems, currentPage: p, totalItems: tPage }; let i = index">
       <td>{{i + 1}}</td>
       <td>{{numberInfo.org}}</td>
       <td>{{numberInfo.phone_number}}</td>
@@ -83,10 +84,10 @@
     </tr>
   </table>
   <div>
-  <pagination-controls (pageChange)="p = $event;getNumberDetail()"></pagination-controls>
+    <pagination-controls (pageChange)="p = $event; getNumberDetail()"></pagination-controls>
     <label>Records per Page: </label>
-    <select (change)="onChange($event.target.value)">
+    <label><select (change)="onChange($event.target.value)">
       <option *ngFor="let pageRecords of RecordsPerPage" value="{{pageRecords}}">{{pageRecords}}</option>
-    </select>
+    </select></label>
   </div>
 </div>
