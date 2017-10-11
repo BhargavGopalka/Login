@@ -5,6 +5,7 @@ import {AppServiceService} from '../app-service.service';
 import 'rxjs/add/operator/filter';
 import {State} from '../state-info/state.model';
 import {City} from '../city/city.model';
+import {ApiEndpoints} from "../api-endpoints";
 
 @Component({
   selector: 'app-location',
@@ -40,8 +41,8 @@ export class LocationComponent implements OnInit {
   }
 
   removeLocation(id: number, index: number): void {
-    const url = `location/${id}`;
-    this.appService.deleteAPI(url)
+    // const url = `location/${id}`;
+    this.appService.deleteAPI(ApiEndpoints.Location + `/${id}`)
       .subscribe(res => {
         this.cityList.splice(index, 1);
         console.log(res);
@@ -55,18 +56,19 @@ export class LocationComponent implements OnInit {
   }
 
   getLocation(): void {
-    const url = `location?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
-    this.appService.getAPI(url).subscribe(res => {
-      console.log(res);
-      this.totalNumRecords = res.pager.totalRecords;
-      this.locationList = res.payload.data;
-    });
+    // const url = `location?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
+    this.appService.getAPI(ApiEndpoints.Location + `?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`)
+      .subscribe(res => {
+        console.log(res);
+        this.totalNumRecords = res.pager.totalRecords;
+        this.locationList = res.payload.data;
+      });
   }
 
   searchStreet(value: string) {
     const searchName = {'street': value};
-    const url = `location?records=all&sortBy=street&sortOrder=asc&search=${JSON.stringify(searchName)}`;
-    this.appService.getAPI(url)
+    // const url = `location?records=all&sortBy=street&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(ApiEndpoints.Location + `?records=all&sortBy=street&sortOrder=asc&search=${JSON.stringify(searchName)}`)
       .subscribe(res => {
         this.locationList = res.payload.data;
         // console.log(this.stateList);
@@ -75,8 +77,8 @@ export class LocationComponent implements OnInit {
 
   addLocation(formValue: any) {
     if (this.selectLocation == null) {
-      const url = `location`;
-      this.appService.postAPI(url, formValue)
+      // const url = `location`;
+      this.appService.postAPI(ApiEndpoints.Location, formValue)
         .subscribe(res => {
             console.log(res);
             this.getLocation();
@@ -87,8 +89,8 @@ export class LocationComponent implements OnInit {
             console.log(`Error: ${msg.status} ${msg.statusText}`);
           });
     } else {
-      const url = `city/${this.selectLocation.id}`;
-      this.appService.putAPI(url, formValue)
+      // const url = `city/${this.selectLocation.id}`;
+      this.appService.putAPI(ApiEndpoints.City + `/${this.selectLocation.id}`, formValue)
         .subscribe(res => {
             console.log(res);
             this.getLocation();
@@ -102,8 +104,8 @@ export class LocationComponent implements OnInit {
   }
 
   getState() {
-    const url = `state`;
-    this.appService.getAPI(url)
+    // const url = `state`;
+    this.appService.getAPI(ApiEndpoints.State)
       .subscribe(res => {
         console.log(res);
         this.stateList = res.payload.data;
@@ -126,8 +128,8 @@ export class LocationComponent implements OnInit {
   }
 
   getOrg() {
-    const url = `organization`;
-    this.appService.getAPI(url)
+    // const url = `organization`;
+    this.appService.getAPI(ApiEndpoints.Organization)
       .subscribe(res => {
         console.log(res);
         this.organizationList = res.payload.data;
@@ -135,8 +137,8 @@ export class LocationComponent implements OnInit {
   }
 
   getCountry() {
-    const url = `country`;
-    this.appService.getAPI(url)
+    // const url = `country`;
+    this.appService.getAPI(ApiEndpoints.Country)
       .subscribe(res => {
         console.log(res);
         this.countryList = res.payload.data;
@@ -144,8 +146,8 @@ export class LocationComponent implements OnInit {
   }
 
   getCity() {
-    const url = `city`;
-    this.appService.getAPI(url)
+    // const url = `city`;
+    this.appService.getAPI(ApiEndpoints.City)
       .subscribe(res => {
         console.log(res);
         this.cityList = res.payload.data;

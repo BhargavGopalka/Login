@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Department} from './department.model';
 import {AppServiceService} from '../app-service.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {ApiEndpoints} from '../api-endpoints';
 
 @Component({
   selector: 'app-department',
@@ -38,8 +39,8 @@ export class DepartmentComponent implements OnInit {
   }
 
   getDepartment(): void {
-    const url = `department?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
-    this.appService.getAPI(url)
+    // const url = `department?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
+    this.appService.getAPI(ApiEndpoints.Department + `?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`)
       .subscribe(res => {
         console.log(res);
         this.totalNumRecords = res.pager.totalRecords;
@@ -49,8 +50,8 @@ export class DepartmentComponent implements OnInit {
 
   getOrg() {
 
-    const url = `organization`;
-    this.appService.getAPI(url)
+    // const url = `organization`;
+    this.appService.getAPI(ApiEndpoints.Department)
       .subscribe(res => {
         console.log(res);
         this.organizations = res.payload.data;
@@ -59,8 +60,8 @@ export class DepartmentComponent implements OnInit {
 
   searchDep(value: string) {
     const searchName = {'department': value};
-    const url = `department?records=all&sortBy=department&sortOrder=asc&search=${JSON.stringify(searchName)}`;
-    this.appService.getAPI(url)
+    // const url = `department?records=all&sortBy=department&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(ApiEndpoints.Department + `?records=all&sortBy=department&sortOrder=asc&search=${JSON.stringify(searchName)}`)
       .subscribe(res => {
         this.departmentList = res.payload.data;
         // console.log(this.departmentList);
@@ -68,8 +69,8 @@ export class DepartmentComponent implements OnInit {
   }
 
   removeDepartment(id: number, index: number): void {
-    const url = `department/${id}`;
-    this.appService.deleteAPI(url)
+    // const url = `department/${id}`;
+    this.appService.deleteAPI(ApiEndpoints.Department + `/${id}`)
       .subscribe(res => {
         this.departmentList.splice(index, 1);
         console.log(res);
@@ -78,8 +79,8 @@ export class DepartmentComponent implements OnInit {
 
   addDepartment(formValue: any) {
     if (this.selectDepartment == null) {
-      const url = `department`;
-      this.appService.postAPI(url, formValue)
+      // const url = `department`;
+      this.appService.postAPI(ApiEndpoints.Department, formValue)
         .subscribe(res => {
             console.log(res);
             this.getDepartment();
@@ -90,8 +91,8 @@ export class DepartmentComponent implements OnInit {
             console.log(`Error: ${msg.status} ${msg.statusText}`);
           });
     } else {
-      const url = `department/${this.selectDepartment.id}`;
-      this.appService.putAPI(url, formValue)
+      // const url = `department/${this.selectDepartment.id}`;
+      this.appService.putAPI(ApiEndpoints.Department + `/${this.selectDepartment.id}`, formValue)
         .subscribe(res => {
             console.log(res);
             this.getDepartment();

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AppServiceService} from '../app-service.service';
 import {Organization} from './organization.model';
+import {ApiEndpoints} from '../api-endpoints';
 
 @Component({
   selector: 'app-organization',
@@ -37,8 +38,8 @@ export class OrganizationComponent implements OnInit {
   }
 
   getOrg() {
-    const url = `organization?pageNumber=${this.p}&recordsPerPage=${this.items}`;
-    this.appService.getAPI(url)
+    // const url = `organization?pageNumber=${this.p}&recordsPerPage=${this.items}`;
+    this.appService.getAPI(ApiEndpoints.Organization + `?pageNumber=${this.p}&recordsPerPage=${this.items}`)
       .subscribe(res => {
         console.log(res);
         this.Organization = res.payload.data;
@@ -49,8 +50,8 @@ export class OrganizationComponent implements OnInit {
 
   searchOrg(value: string) {
     const searchName = {'name': value};
-    const url = `organization?sortBy=name&sortOrder=asc&search=${JSON.stringify(searchName)}`;
-    this.appService.getAPI(url)
+    // const url = `organization?sortBy=name&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(ApiEndpoints.Organization + `sortBy=name&sortOrder=asc&search=${JSON.stringify(searchName)}`)
       .subscribe(res => {
         this.Organization = res.payload.data;
         console.log(this.Organization);
@@ -62,9 +63,9 @@ export class OrganizationComponent implements OnInit {
     //   name: ['formVal']
     // });
 
-    const url = `organization`;
+    // const url = `organization`;
     if (this.selectedOrg == null) {
-      this.appService.postAPI(url, formVal)
+      this.appService.postAPI(ApiEndpoints.Organization, formVal)
         .subscribe(res => {
             console.log(res);
             this.getOrg();
@@ -73,7 +74,7 @@ export class OrganizationComponent implements OnInit {
           },
           msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
     } else {
-      this.appService.putAPI(url + '/' + this.selectedOrg.id, formVal)
+      this.appService.putAPI(ApiEndpoints.Organization + '/' + this.selectedOrg.id, formVal)
         .subscribe(res => {
             console.log(res);
             // this.details.push(res.json().payload.data);
@@ -108,8 +109,8 @@ export class OrganizationComponent implements OnInit {
   // }
 
   removeOrg(id: number, index: number) {
-    const url = `organization/${id}`;
-    this.appService.deleteAPI(url)
+    // const url = `organization/${id}`;
+    this.appService.deleteAPI(ApiEndpoints.Organization + `/${id}`)
       .subscribe(res => {
         this.Organization.splice(index, 1);
         console.log(res);

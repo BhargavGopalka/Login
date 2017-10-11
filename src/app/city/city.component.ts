@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {City} from './city.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AppServiceService} from '../app-service.service';
+import {ApiEndpoints} from "../api-endpoints";
 
 @Component({
   selector: 'app-city',
@@ -32,8 +33,8 @@ export class CityComponent implements OnInit {
   }
 
   removeCity(id: number, index: number): void {
-    const url = `city/${id}`;
-    this.appService.deleteAPI(url)
+    // const url = `city/${id}`;
+    this.appService.deleteAPI(ApiEndpoints.City + `/${id}`)
       .subscribe(res => {
         this.cityList.splice(index, 1);
         console.log(res);
@@ -47,18 +48,19 @@ export class CityComponent implements OnInit {
   }
 
   getCity(): void {
-    const url = `city?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
-    this.appService.getAPI(url).subscribe(res => {
-      console.log(res);
-      this.totalNumRecords = res.pager.totalRecords;
-      this.cityList = res.payload.data;
-    });
+    // const url = `city?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
+    this.appService.getAPI(ApiEndpoints.City + `?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`)
+      .subscribe(res => {
+        console.log(res);
+        this.totalNumRecords = res.pager.totalRecords;
+        this.cityList = res.payload.data;
+      });
   }
 
   searchCity(value: string) {
     const searchName = {'name': value};
-    const url = `city?records=all&sortBy=name&sortOrder=asc&search=${JSON.stringify(searchName)}`;
-    this.appService.getAPI(url)
+    // const url = `city?records=all&sortBy=name&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(ApiEndpoints.City + `?records=all&sortBy=name&sortOrder=asc&search=${JSON.stringify(searchName)}`)
       .subscribe(res => {
         this.cityList = res.payload.data;
         // console.log(this.stateList);
@@ -67,8 +69,8 @@ export class CityComponent implements OnInit {
 
   addCity(formValue: any) {
     if (this.selectCity == null) {
-      const url = `city`;
-      this.appService.postAPI(url, formValue)
+      // const url = `city`;
+      this.appService.postAPI(ApiEndpoints.City, formValue)
         .subscribe(res => {
             console.log(res);
             this.getCity();
@@ -79,8 +81,8 @@ export class CityComponent implements OnInit {
             console.log(`Error: ${msg.status} ${msg.statusText}`);
           });
     } else {
-      const anotherUrl = `city/${this.selectCity.id}`;
-      this.appService.putAPI(anotherUrl, formValue)
+      // const anotherUrl = `city/${this.selectCity.id}`;
+      this.appService.putAPI(ApiEndpoints.City + `/${this.selectCity.id}`, formValue)
         .subscribe(res => {
             console.log(res);
             this.getCity();
@@ -94,8 +96,8 @@ export class CityComponent implements OnInit {
   }
 
   getState() {
-    const url = `state`;
-    this.appService.getAPI(url)
+    // const url = `state`;
+    this.appService.getAPI(ApiEndpoints.State)
       .subscribe(res => {
         console.log(res);
         this.stateList = res.payload.data;

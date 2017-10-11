@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Application} from './application.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AppServiceService} from '../app-service.service';
+import {ApiEndpoints} from "../api-endpoints";
 
 @Component({
   selector: 'app-application',
@@ -37,8 +38,8 @@ export class ApplicationComponent implements OnInit {
   }
 
   getApp() {
-    const url = `app?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
-    this.appService.getAPI(url)
+    // const url = `app?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
+    this.appService.getAPI(ApiEndpoints.App + `?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`)
       .subscribe(res => {
         console.log(res);
         this.totalNumRecords = res.pager.totalRecords;
@@ -48,8 +49,8 @@ export class ApplicationComponent implements OnInit {
 
   searchApp(value: string) {
     const searchName = {'url': value};
-    const url = `app?records=all&sortBy=url&sortOrder=asc&search=${JSON.stringify(searchName)}`;
-    this.appService.getAPI(url)
+    // const url = `app?records=all&sortBy=url&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(ApiEndpoints + `?records=all&sortBy=url&sortOrder=asc&search=${JSON.stringify(searchName)}`)
       .subscribe(res => {
         this.appList = res.payload.data;
         // console.log(this.stateList);
@@ -57,9 +58,9 @@ export class ApplicationComponent implements OnInit {
   }
 
   addApp(formVal: any) {
-    const url = `app`;
+    // const url = `app`;
     if (this.selectApp == null) {
-      this.appService.postAPI(url, formVal)
+      this.appService.postAPI(ApiEndpoints.App, formVal)
         .subscribe(res => {
             console.log(res);
             this.getApp();
@@ -68,7 +69,7 @@ export class ApplicationComponent implements OnInit {
           },
           msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
     } else {
-      this.appService.putAPI(url + '/' + this.selectApp.id, formVal)
+      this.appService.putAPI(ApiEndpoints.App + '/' + this.selectApp.id, formVal)
         .subscribe(res => {
             console.log(res);
             this.getApp();
@@ -80,8 +81,8 @@ export class ApplicationComponent implements OnInit {
   }
 
   removeApp(id: number, index: number) {
-    const url = `app/${id}`;
-    this.appService.deleteAPI(url)
+    // const url = `app/${id}`;
+    this.appService.deleteAPI(ApiEndpoints.App + `/${id}`)
       .subscribe(res => {
         this.appList.splice(index, 1);
         console.log(res);

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AppServiceService} from '../app-service.service';
 import {State} from './state.model';
+import {ApiEndpoints} from '../api-endpoints';
 
 @Component({
   selector: 'app-state-info',
@@ -11,13 +12,12 @@ import {State} from './state.model';
 
 export class StateInfoComponent implements OnInit {
 
-  items = 5;
+  items = 20;
   pageNumber = 1;
   totalNumRecords: number;
 
   stateList: State[] = [];
   countries = [];
-  RecordsPerPage: any[] = [5, 10, 15, 20];
 
   showTable = true;
   showForm = false;
@@ -33,8 +33,8 @@ export class StateInfoComponent implements OnInit {
   }
 
   removeState(id: number, index: number): void {
-    const url = `state/${id}`;
-    this.appService.deleteAPI(url)
+    // const url = `state/${id}`;
+    this.appService.deleteAPI(ApiEndpoints.State + `/${id}`)
       .subscribe(res => {
         this.stateList.splice(index, 1);
         console.log(res);
@@ -48,12 +48,13 @@ export class StateInfoComponent implements OnInit {
   }
 
   getState(): void {
-    const url = `state?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
-    this.appService.getAPI(url).subscribe(res => {
-      console.log(res);
-      this.totalNumRecords = res.pager.totalRecords;
-      this.stateList = res.payload.data;
-    });
+    // const url = `state?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
+    this.appService.getAPI(ApiEndpoints.State + `?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`)
+      .subscribe(res => {
+        console.log(res);
+        this.totalNumRecords = res.pager.totalRecords;
+        this.stateList = res.payload.data;
+      });
     // const header = new Headers();
     // header.append('Authorization', sessionStorage.getItem('currentUser'));
     //
@@ -70,8 +71,8 @@ export class StateInfoComponent implements OnInit {
 
   searchState(value: string) {
     const searchName = {'state': value};
-    const url = `state?records=all&sortBy=state&sortOrder=asc&search=${JSON.stringify(searchName)}`;
-    this.appService.getAPI(url)
+    // const url = `state?records=all&sortBy=state&sortOrder=asc&search=${JSON.stringify(searchName)}`;
+    this.appService.getAPI(ApiEndpoints.State + `?records=all&sortBy=state&sortOrder=asc&search=${JSON.stringify(searchName)}`)
       .subscribe(res => {
         this.stateList = res.payload.data;
         // console.log(this.stateList);
@@ -87,8 +88,8 @@ export class StateInfoComponent implements OnInit {
     // option.headers = header;
     //
     if (this.selectState == null) {
-      const url = `state`;
-      this.appService.postAPI(url, formValue)
+      // const url = `state`;
+      this.appService.postAPI(ApiEndpoints.State, formValue)
         .subscribe(res => {
             console.log(res);
             this.getState();
@@ -99,8 +100,8 @@ export class StateInfoComponent implements OnInit {
             console.log(`Error: ${msg.status} ${msg.statusText}`);
           });
     } else {
-      const anotherUrl = `state/${this.selectState.id}`;
-      this.appService.putAPI(anotherUrl, formValue)
+      // const anotherUrl = `state/${this.selectState.id}`;
+      this.appService.putAPI(ApiEndpoints.State + `/${this.selectState.id}`, formValue)
         .subscribe(res => {
             console.log(res);
             this.getState();
@@ -115,8 +116,8 @@ export class StateInfoComponent implements OnInit {
 
   getCountries() {
 
-    const url = `country`;
-    this.appService.getAPI(url)
+    // const url = `country`;
+    this.appService.getAPI(ApiEndpoints.Country)
       .subscribe(res => {
         console.log(res);
         this.countries = res.payload.data;

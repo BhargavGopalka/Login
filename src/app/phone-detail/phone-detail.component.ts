@@ -7,6 +7,7 @@ import {Country} from '../country/country.model';
 import {State} from '../state-info/state.model';
 import {City} from '../city/city.model';
 import {Location} from '../location/location.model';
+import {ApiEndpoints} from '../api-endpoints';
 
 @Component({
   selector: 'app-phone-detail',
@@ -50,8 +51,8 @@ export class PhoneDetailComponent implements OnInit {
 
   getNumberDetail() {
     // console.log(this.pageItems);
-    const url = `phoneDetail?pageNumber=${this.p}&recordsPerPage=${this.pageItems}&sortBy=org&sortOrder=asc`;
-    this.appService.getAPI(url)
+    // const url = `phoneDetail?pageNumber=${this.p}&recordsPerPage=${this.pageItems}&sortBy=org&sortOrder=asc`;
+    this.appService.getAPI(ApiEndpoints.PhoneDetail + `?pageNumber=${this.p}&recordsPerPage=${this.pageItems}&sortBy=org&sortOrder=asc`)
       .subscribe(res => {
         // console.log(res);
         this.tPage = res.pager.totalRecords;
@@ -61,8 +62,8 @@ export class PhoneDetailComponent implements OnInit {
 
   getOrg() {
     if (this.organizationList.length === 0) {
-      const url = `organization`;
-      this.appService.getAPI(url)
+      // const url = `organization`;
+      this.appService.getAPI(ApiEndpoints.Organization)
         .subscribe(res => {
           // console.log(res);
           this.organizationList = res.payload.data;
@@ -72,8 +73,8 @@ export class PhoneDetailComponent implements OnInit {
 
   getCountry() {
     if (this.countryList.length === 0) {
-      const url = `country`;
-      this.appService.getAPI(url)
+      // const url = `country`;
+      this.appService.getAPI(ApiEndpoints.Country)
         .subscribe(res => {
           // console.log(res);
           this.countryList = res.payload.data;
@@ -83,8 +84,8 @@ export class PhoneDetailComponent implements OnInit {
 
   getState() {
     if (this.stateList.length === 0) {
-      const url = `state`;
-      this.appService.getAPI(url)
+      // const url = `state`;
+      this.appService.getAPI(ApiEndpoints.State)
         .subscribe(res => {
           // console.log(res);
           this.stateList = res.payload.data;
@@ -102,8 +103,8 @@ export class PhoneDetailComponent implements OnInit {
 
   getCity() {
     if (this.cityList.length === 0) {
-      const url = `city`;
-      this.appService.getAPI(url)
+      // const url = `city`;
+      this.appService.getAPI(ApiEndpoints.City)
         .subscribe(res => {
           // console.log(res);
           this.cityList = res.payload.data;
@@ -120,8 +121,8 @@ export class PhoneDetailComponent implements OnInit {
 
   getStreet() {
     if (this.streetList.length === 0) {
-      const url = `location?records=all`;
-      this.appService.getAPI(url)
+      // const url = `location?records=all`;
+      this.appService.getAPI(ApiEndpoints.Location + `?records=all`)
         .subscribe(res => {
           console.log(res);
           this.streetList = res.payload.data;
@@ -131,8 +132,8 @@ export class PhoneDetailComponent implements OnInit {
 
   addNumber(formValue: any) {
     if (this.selectNumber == null) {
-      const url = `phone`;
-      this.appService.postAPI(url, formValue)
+      // const url = `phone`;
+      this.appService.postAPI(ApiEndpoints.Phone, formValue)
         .subscribe(() => {
             this.getNumberDetail();
             this.selectedState = [];
@@ -144,8 +145,8 @@ export class PhoneDetailComponent implements OnInit {
             console.log(`Error: ${msg.status} ${msg.statusText}`);
           });
     } else {
-      const url = `phone/${this.selectNumber.phone_id}`;
-      this.appService.putAPI(url, formValue)
+      // const url = `phone/${this.selectNumber.phone_id}`;
+      this.appService.putAPI(ApiEndpoints.Phone + `/${this.selectNumber.phone_id}`, formValue)
         .subscribe(() => {
             this.getNumberDetail();
             this.showTable = true;
@@ -158,8 +159,8 @@ export class PhoneDetailComponent implements OnInit {
   }
 
   removeNumber(id: number, index: number): void {
-    const url = `phone/${id}`;
-    this.appService.deleteAPI(url)
+    // const url = `phone/${id}`;
+    this.appService.deleteAPI(ApiEndpoints.Phone + `/${id}`)
       .subscribe(() => {
         this.numberList.splice(index, 1);
       });

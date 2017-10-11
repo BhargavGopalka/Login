@@ -2,18 +2,19 @@ import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import {Constant} from './constants';
 
 @Injectable()
 export class AppServiceService {
 
-  baseUrl = `https://mvp-dev-extensionsapi.visumenu.com/`;
+  // baseUrl = `https://mvp-dev-extensionsapi.visumenu.com/`;
 
   constructor(private http: Http) {
   }
 
   /* GET API - read only, get all records */
   getAPI(endpoint: string): Observable<any> {
-    return this.http.get(this.baseUrl + endpoint, this.Headers)
+    return this.http.get(Constant.baseUrl + endpoint, this.Headers)
       .map(res => {
         return res.json();
       });
@@ -21,7 +22,7 @@ export class AppServiceService {
 
   /* Delete record */
   deleteAPI(endpoint: string): Observable<any> {
-    return this.http.delete(this.baseUrl + endpoint, this.Headers)
+    return this.http.delete(Constant.baseUrl + endpoint, this.Headers)
       .map(res => {
         return res.json();
       });
@@ -29,7 +30,7 @@ export class AppServiceService {
 
   /* Add record */
   postAPI(endpoint: string, formVal: any): Observable<any> {
-    return this.http.post(this.baseUrl + endpoint, formVal, this.Headers)
+    return this.http.post(Constant.baseUrl + endpoint, formVal, this.Headers)
       .map(res => {
         return res.json();
       });
@@ -37,7 +38,7 @@ export class AppServiceService {
 
   /* Update record */
   putAPI(endpoint: string, formVal: any): Observable<any> {
-    return this.http.put(this.baseUrl + endpoint, formVal, this.Headers)
+    return this.http.put(Constant.baseUrl + endpoint, formVal, this.Headers)
       .map(res => {
         return res.json();
       });

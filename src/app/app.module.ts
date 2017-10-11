@@ -20,6 +20,7 @@ import {AuthGuard, SaveDataGuard} from './auth.guard';
 import {OrganizationDataComponent} from './organization-data/organization-data.component';
 import {CountryDataComponent} from './country-data/country-data.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ApplicationComponent,
     PhoneDetailComponent,
     OrganizationDataComponent,
-    CountryDataComponent
+    CountryDataComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Country} from './country.model';
 import {AppServiceService} from '../app-service.service';
 import {Headers, Http, RequestOptions} from '@angular/http';
+import {ApiEndpoints} from "../api-endpoints";
 
 @Component({
   selector: 'app-country',
@@ -39,8 +40,8 @@ export class CountryComponent implements OnInit {
 
   getCountry() {
 
-    const url = `country?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
-    this.appService.getAPI(url)
+    // const url = `country?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`;
+    this.appService.getAPI(ApiEndpoints.Country + `?pageNumber=${this.pageNumber}&recordsPerPage=${this.items}`)
       .subscribe(res => {
         this.totalNumRecords = res.pager.totalRecords;
         this.countryList = res.payload.data;
@@ -66,9 +67,9 @@ export class CountryComponent implements OnInit {
 
   addCountry(formVal: any) {
 
-    const url = `country`;
+    // const url = `country`;
     if (this.selectCountry == null) {
-      this.appService.postAPI(url, formVal)
+      this.appService.postAPI(ApiEndpoints.Country, formVal)
         .subscribe(() => {
             this.getCountry();
             this.tableShow = true;
@@ -81,7 +82,7 @@ export class CountryComponent implements OnInit {
           },
           msg => console.log(`Error: ${msg.status} ${msg.statusText}`));
     } else {
-      this.appService.putAPI(url + '/' + this.selectCountry.id, formVal)
+      this.appService.putAPI(ApiEndpoints.Country + '/' + this.selectCountry.id, formVal)
         .subscribe(res => {
           console.log(res);
           this.getCountry();
@@ -93,8 +94,8 @@ export class CountryComponent implements OnInit {
 
   removeCountry(id: number, index: number) {
 
-    const url = `country/${id}`;
-    this.appService.deleteAPI(url)
+    // const url = `country/${id}`;
+    this.appService.deleteAPI(ApiEndpoints.Country + `/${id}`)
       .subscribe(res => {
         this.countryList.splice(index, 1);
         console.log(res);
