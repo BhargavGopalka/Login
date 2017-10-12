@@ -22,6 +22,7 @@ import {CountryDataComponent} from './country-data/country-data.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { PaginationComponent } from './pagination/pagination.component';
 import { BoldPipePipe } from './bold-pipe.pipe';
+import { SideBarComponent } from './side-bar/side-bar.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BoldPipePipe } from './bold-pipe.pipe';
     OrganizationDataComponent,
     CountryDataComponent,
     PaginationComponent,
-    BoldPipePipe
+    BoldPipePipe,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,

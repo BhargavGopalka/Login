@@ -11,8 +11,8 @@ import {LocationComponent} from '../location/location.component';
 import {ApplicationComponent} from '../application/application.component';
 import {PhoneDetailComponent} from '../phone-detail/phone-detail.component';
 import {AuthGuard, SaveDataGuard} from '../auth.guard';
-import {OrganizationDataComponent} from "../organization-data/organization-data.component";
-import {CountryDataComponent} from "../country-data/country-data.component";
+import {OrganizationDataComponent} from '../organization-data/organization-data.component';
+import {CountryDataComponent} from '../country-data/country-data.component';
 
 export const routes: Routes = [
   {
