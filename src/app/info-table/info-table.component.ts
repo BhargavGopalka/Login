@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Headers, Http, RequestOptions} from '@angular/http';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-info-table',
@@ -10,6 +10,8 @@ import {Router} from "@angular/router";
 export class InfoTableComponent implements OnInit {
 
   details = [];
+
+  today = Date.now();
 
   constructor(private http: Http, private routes: Router) {
   }

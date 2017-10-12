@@ -21,6 +21,7 @@ import {OrganizationDataComponent} from './organization-data/organization-data.c
 import {CountryDataComponent} from './country-data/country-data.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { PaginationComponent } from './pagination/pagination.component';
+import { BoldPipePipe } from './bold-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     PhoneDetailComponent,
     OrganizationDataComponent,
     CountryDataComponent,
-    PaginationComponent
+    PaginationComponent,
+    BoldPipePipe
   ],
   imports: [
     BrowserModule,

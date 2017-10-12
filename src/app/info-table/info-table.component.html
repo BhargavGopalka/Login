@@ -10,6 +10,13 @@
 <button routerLink="phone">Add Number</button>
 <button type="submit" (click)="logOut()">Logout</button>
 <br><br>
+
+<div>
+  <p>Today is {{today | date}}</p>
+  <p>Current Time is {{today | date:'shortTime'}}</p>
+</div>
+
+<br><br>
 <table border="1">
   <tr>
     <th>Organization</th>
@@ -21,10 +28,10 @@
   </tr>
   <tr *ngFor="let detail of details">
     <td>{{detail.org}}</td>
-    <td>{{detail.phone_number}}</td>
+    <td [innerHTML]="detail.phone_number | boldPipe"></td>
     <td>{{detail.department}}</td>
     <td>{{detail.extension}}</td>
-    <td>{{detail.country}}</td>
+    <td>{{detail.country | uppercase}}</td>
     <td>{{detail.state}}</td>
   </tr>
 </table>
