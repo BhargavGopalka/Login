@@ -12,11 +12,10 @@ import {ApiEndpoints} from '../api-endpoints';
 export class OrganizationComponent implements OnInit {
 
   p = 1;
-  items = 3;
+  items = 20;
   totalNumRecords: number;
 
   Organization: Organization[] = [];
-  NumberOfRecords: any[] = [3, 5, 10, 20];
 
   dataForm: FormGroup;
   selectedOrg = null;

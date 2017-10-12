@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {City} from './city.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AppServiceService} from '../app-service.service';
-import {ApiEndpoints} from "../api-endpoints";
+import {ApiEndpoints} from '../api-endpoints';
 
 @Component({
   selector: 'app-city',
@@ -11,13 +11,12 @@ import {ApiEndpoints} from "../api-endpoints";
 })
 export class CityComponent implements OnInit {
 
-  items = 5;
+  items = 20;
   pageNumber = 1;
   totalNumRecords: number;
 
   cityList: City[] = [];
   stateList = [];
-  RecordsNumArray: any[] = [5, 10, 15, 20];
 
   showTable = true;
   showForm = false;
@@ -41,7 +40,7 @@ export class CityComponent implements OnInit {
       });
   }
 
-  numberChange(val) {
+  numChange(val) {
     this.pageNumber = 1;
     this.items = +val;
     this.getCity();

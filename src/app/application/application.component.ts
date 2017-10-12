@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Application} from './application.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AppServiceService} from '../app-service.service';
-import {ApiEndpoints} from "../api-endpoints";
+import {ApiEndpoints} from '../api-endpoints';
 
 @Component({
   selector: 'app-application',
@@ -11,12 +11,11 @@ import {ApiEndpoints} from "../api-endpoints";
 })
 export class ApplicationComponent implements OnInit {
 
-  items = 1;
+  items = 20;
   pageNumber = 1;
   totalNumRecords: number;
 
   appList: Application[] = [];
-  recordsNumArray: any[] = [1, 2, 3, 4];
 
   appForm: FormGroup;
   selectApp = null;
@@ -31,7 +30,7 @@ export class ApplicationComponent implements OnInit {
     this.getApp();
   }
 
-  numberChange(val) {
+  numChange(val) {
     this.pageNumber = 1;
     this.items = +val;
     this.getApp();

@@ -83,11 +83,5 @@
       </td>
     </tr>
   </table>
-  <div>
-    <pagination-controls (pageChange)="p = $event; getNumberDetail()"></pagination-controls>
-    <label>Records per Page: </label>
-    <label><select (change)="onChange($event.target.value)">
-      <option *ngFor="let pageRecords of RecordsPerPage" value="{{pageRecords}}">{{pageRecords}}</option>
-    </select></label>
-  </div>
-</div>
+
+  <app-pagination (pageChange)="p = $event;getNumberDetail()" (numberChange)="onChange($event)"></app-pagination>

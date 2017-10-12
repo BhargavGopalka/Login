@@ -20,7 +20,6 @@ export class DepartmentComponent implements OnInit {
 
   departmentList: Department[] = [];
   organizations = [];
-  RecordsPerPage: any[] = [20, 50, 100, 150];
 
   departmentForm: FormGroup;
   selectDepartment = null;
@@ -32,7 +31,7 @@ export class DepartmentComponent implements OnInit {
     this.getDepartment();
   }
 
-  numberChange(val) {
+  numChange(val) {
     this.pageNumber = 1;
     this.items = +val;
     this.getDepartment();

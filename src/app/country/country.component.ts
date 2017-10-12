@@ -12,12 +12,11 @@ import {ApiEndpoints} from "../api-endpoints";
 })
 export class CountryComponent implements OnInit {
 
-  items = 5;
+  items = 20;
   pageNumber = 1;
   totalNumRecords: number;
 
   countryList: Country[] = [];
-  RecordsPerPage: any[] = [5, 10, 15, 20];
 
   tableShow = true;
   formShow = false;

@@ -5,7 +5,7 @@ import {AppServiceService} from '../app-service.service';
 import 'rxjs/add/operator/filter';
 import {State} from '../state-info/state.model';
 import {City} from '../city/city.model';
-import {ApiEndpoints} from "../api-endpoints";
+import {ApiEndpoints} from '../api-endpoints';
 
 @Component({
   selector: 'app-location',
@@ -14,7 +14,7 @@ import {ApiEndpoints} from "../api-endpoints";
 })
 export class LocationComponent implements OnInit {
 
-  items = 10;
+  items = 20;
   pageNumber = 1;
   totalNumRecords: number;
 
@@ -25,7 +25,6 @@ export class LocationComponent implements OnInit {
   cityList: City[] = [];
   selectedState: State[] = [];
   selectedCity: City[] = [];
-  recordsNumArray: any[] = [10, 20, 50, 100];
 
   showTable = true;
   showForm = false;
@@ -49,7 +48,7 @@ export class LocationComponent implements OnInit {
       });
   }
 
-  numberChange(val) {
+  numChange(val) {
     this.pageNumber = 1;
     this.items = +val;
     this.getLocation();
